@@ -1,99 +1,58 @@
-const database = {
-    'clara': {
-        grade: 1,
-        theory: "<h3>Số 1, 2, 3</h3><p>Quan sát hình vẽ: 🍎=1, 🍎🍎=2, 🍎🍎🍎=3</p>",
-        exercises: [
-            { q: "Có bao nhiêu quả táo trong hình? (🍎🍎)", a: "2" },
-            { q: "Số nào lớn nhất: 1, 2 hay 3?", a: "3" }
-        ]
-    },
-    'cris': {
-        grade: 3,
-        theory: "<h3>Xem đồng hồ</h3><p>Kim dài chỉ số 12 là giờ đúng.</p>",
-        exercises: [
-            { q: "Gấu có 25 cái bánh, mua thêm 30 cái. Tổng cộng?", a: "55" },
-            { q: "Một ngày có bao nhiêu giờ?", a: "24" }
-        ]
-    },
-    'simon': {
-        grade: 4,
-        theory: "<h3>Tổng và Hiệu</h3><p>Dùng sơ đồ đoạn thẳng để giải.</p>",
-        exercises: [
-            { q: "Tổng 2 số là 50, hiệu là 10. Số lớn?", a: "30" }
-        ]
-    },
-    'toro': {
-        grade: 5,
-        theory: "<h3>Tỉ số phần trăm</h3><p>Dạng toán thực tế đi chợ.</p>",
-        exercises: [
-            { q: "Nhà thầu giảm giá 2.5% cho ngôi nhà 360 triệu. Số tiền giảm?", a: "9" }
-        ]
-    }
-};
-
-let currentId = null;
-let timer;
-let mistakes = JSON.parse(localStorage.getItem('mistakes')) || {};
-
-function selectUser(id) {
-    currentId = id;
-    document.getElementById('main-dashboard').style.display = 'none';
-    document.getElementById('learning-zone').style.display = 'block';
-    document.getElementById('user-title').innerText = "Khu vực của " + id.toUpperCase();
-    loadContent('theory');
+:root {
+    --clara: #ff85a1; --cris: #4895ef; --simon: #4cc9f0; --toro: #f9c74f;
+    --bg: #f0f9ff; --white: #ffffff;
 }
 
-function loadContent(type) {
-    const display = document.getElementById('content-display');
-    const data = database[currentId];
-    clearInterval(timer);
-
-    if (type === 'theory') {
-        display.innerHTML = data.theory;
-    } else if (type === 'exercise') {
-        const ex = data.exercises[Math.floor(Math.random() * data.exercises.length)];
-        display.innerHTML = `<h3>${ex.q}</h3><input type="text" id="ans" class="ipad-input">
-                             <button class="btn-topic" onclick="checkAnswer('${ex.a}', '${ex.q}')">Nộp bài</button>`;
-        
-        // Tính năng Clara: Tự động đọc [11]
-        if (currentId === 'clara') {
-            const speech = new SpeechSynthesisUtterance(ex.q);
-            speech.lang = 'vi-VN';
-            window.speechSynthesis.speak(speech);
-        } else {
-            startTimer(); // Bộ đếm giờ cho các bé lớn [History]
-        }
-    } else if (type === 'mistakes') {
-        const userMistakes = mistakes[currentId] || [];
-        display.innerHTML = userMistakes.length ? `<ul>${userMistakes.map(m => `<li>${m}</li>`).join('')}</ul>` : "Con chưa có câu sai nào. Giỏi quá!";
-    }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg); margin: 0; padding: 15px;
+    text-align: center; overflow-x: hidden;
 }
 
-function startTimer() {
-    let seconds = 30;
-    timer = setInterval(() => {
-        document.getElementById('timer-display').innerText = seconds + "s";
-        if (seconds <= 0) {
-            clearInterval(timer);
-            alert("Hết giờ! Con sẽ bị trừ 10% điểm hoàn thành nhé.");
-        }
-        seconds--;
-    }, 1000);
+/* Dashboard 2 cột cho iPad */
+.dashboard {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    max-width: 900px; margin: 30px auto;
 }
 
-function checkAnswer(correct, question) {
-    const userAns = document.getElementById('ans').value;
-    if (userAns === correct) {
-        alert("Chính xác! 🎉");
-    } else {
-        alert("Tiếc quá, con làm lại nhé!");
-        if (!mistakes[currentId]) mistakes[currentId] = [];
-        mistakes[currentId].push(question);
-        localStorage.setItem('mistakes', JSON.stringify(mistakes));
-    }
-    loadContent('exercise');
+.btn-card {
+    border: none; border-radius: 30px; padding: 40px 10px;
+    font-size: 1.6rem; font-weight: bold; color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer;
+    transition: transform 0.2s;
 }
 
-function goHome() {
-    location.reload();
+.btn-card:active { transform: scale(0.95); }
+
+#btn-clara { background: linear-gradient(135deg, var(--clara), #fbb6ce); }
+#btn-cris { background: linear-gradient(135deg, var(--cris), #4cc9f0); }
+#btn-simon { background: linear-gradient(135deg, var(--simon), var(--cris)); }
+#btn-toro { background: linear-gradient(135deg, var(--toro), #f9844a); }
+
+/* Menu chuyên đề */
+.topic-menu {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;
 }
+
+.btn-topic {
+    padding: 25px; border-radius: 20px; border: 2px solid #e2e8f0;
+    background: var(--white); font-size: 1.3rem; font-weight: bold;
+    cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.btn-back { background: #cbd5e1; color: #1e293b; }
+
+.display-area {
+    background: var(--white); border-radius: 25px; padding: 30px;
+    min-height: 350px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.timer { font-size: 2.2rem; color: #e63946; font-weight: bold; margin-bottom: 10px; }
+
+.ipad-input {
+    width: 80%; padding: 20px; font-size: 1.8rem; border-radius: 15px;
+    border: 3px solid #cbd5e1; margin: 20px 0; text-align: center;
+}
+
+.btn-action { background: #22c55e; color: white; padding: 20px 40px; border-radius: 50px; font-size: 1.5rem; border: none; cursor: pointer; }
+3. File script.js (Ngân hàng đề & Logic AI)
