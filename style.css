@@ -1,77 +1,48 @@
-/* Font chữ rõ ràng, dễ đọc cho tiểu học [2] */
+:root {
+    --primary: #4cc9f0; --clara: #ff85a1; --cris: #4895ef;
+    --simon: #4cc9f0; --toro: #f9c74f;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e0f2fe;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
+    font-family: 'Segoe UI', sans-serif; background: #f0f4f8;
+    margin: 0; padding: 10px; overflow-x: hidden;
 }
 
+/* Nút bấm thẻ nhân vật */
 .dashboard {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 40px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    padding: 20px; max-width: 800px; margin: auto;
 }
 
-/* Thẻ nhân vật có hiệu ứng tương tác [4] */
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 25px;
-    width: 180px;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+.btn-card {
+    border: none; border-radius: 25px; padding: 40px 20px;
+    font-size: 1.5rem; font-weight: bold; color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.card:hover { transform: scale(1.1); }
+.btn-card:active { transform: scale(0.95); }
 
-/* Màu sắc riêng biệt cho 4 bé */
-#clara { border: 5px solid #ff9a9e; }
-#cris  { border: 5px solid #a1c4fd; }
-#simon { border: 5px solid #84fab0; }
-#toro  { border: 5px solid #f6d365; }
+#btn-clara { background: var(--clara); }
+#btn-cris { background: var(--cris); }
+#btn-simon { background: var(--simon); }
+#btn-toro { background: var(--toro); }
 
-.content-box {
-    background: white;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+/* Menu chủ đề iPad */
+.topic-menu {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
+    margin: 20px 0;
 }
 
-/* Bộ đếm giờ nổi bật cho các bé lớn */
-.timer-style {
-    font-size: 1.5rem;
-    color: #e11d48;
-    font-weight: bold;
-    margin-bottom: 15px;
+.btn-topic {
+    padding: 25px; border-radius: 15px; border: none;
+    background: white; font-size: 1.2rem; font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-/* Thanh tiến độ [4] */
-.progress-bar-bg {
-    width: 100%;
-    background: #cbd5e1;
-    border-radius: 10px;
-    height: 12px;
+.display-area {
+    background: white; border-radius: 20px; padding: 25px;
+    min-height: 300px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.progress-fill {
-    height: 100%;
-    background: #22c55e;
-    border-radius: 10px;
-    transition: width 0.5s;
-}
-
-button {
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: none;
-    background: #0ea5e9;
-    color: white;
-    cursor: pointer;
-    margin: 5px;
-}
+.timer { font-size: 2rem; color: #e63946; font-weight: bold; }
