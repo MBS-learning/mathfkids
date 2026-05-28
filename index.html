@@ -3,53 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MBS Toán Học AI</title>
+    <title>MBS Toán Học AI - Thế giới của 4 Siêu Nhí</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
-        <!-- Màn hình chính -->
+        <!-- Màn hình chính Dashboard -->
         <header id="header">
-            <h1>CHÀO MỪNG 4 SIÊU NHÍ!</h1>
-            <p>Chọn nhân vật của con để bắt đầu hành trình</p>
+            <h1>CHÀO MỪNG 4 SIÊU NHÍ ĐẾN VỚI TOÁN HỌC!</h1>
+            <p>Chọn nhân vật của con để bắt đầu hành trình khám phá nhé</p>
         </header>
 
         <nav class="dashboard" id="main-dashboard">
             <button class="btn-card" id="btn-clara" onclick="selectUser('clara')">
                 <div class="avatar">🌸</div>
-                <span>Clara (2022)</span>
+                <span>CLARA (2022)</span>
             </button>
             <button class="btn-card" id="btn-cris" onclick="selectUser('cris')">
                 <div class="avatar">🚀</div>
-                <span>Cris (2018)</span>
+                <span>CRIS (2018)</span>
             </button>
             <button class="btn-card" id="btn-simon" onclick="selectUser('simon')">
                 <div class="avatar">🛡️</div>
-                <span>Simon (2017)</span>
+                <span>SIMON (2017)</span>
             </button>
             <button class="btn-card" id="btn-toro" onclick="selectUser('toro')">
                 <div class="avatar">⚡</div>
-                <span>Toro (2016)</span>
+                <span>TORO (2016)</span>
             </button>
         </nav>
 
         <!-- Khu vực học tập -->
         <section id="learning-zone" style="display:none;">
-            <div class="user-info">
+            <div class="user-header">
                 <h2 id="user-title"></h2>
                 <div id="timer-display" class="timer">--:--</div>
             </div>
 
-            <!-- Menu dạng nút bấm lớn -->
+            <!-- Menu nút bấm lớn cho iPad -->
             <div class="topic-menu">
                 <button class="btn-topic" onclick="loadContent('theory')">📖 LÝ THUYẾT</button>
                 <button class="btn-topic" onclick="loadContent('exercise')">🎮 BÀI TẬP</button>
                 <button class="btn-topic" onclick="loadContent('mistakes')">❌ CÂU SAI</button>
-                <button class="btn-topic btn-back" onclick="goHome()">🏠 VỀ TRANG CHỦ</button>
+                <button class="btn-topic btn-back" onclick="goHome()">🏠 TRANG CHỦ</button>
             </div>
 
             <div id="content-display" class="display-area">
-                <!-- Nội dung hiển thị tại đây -->
+                <!-- Nội dung lý thuyết hoặc bài tập hiện ở đây -->
             </div>
         </section>
     </div>
