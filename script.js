@@ -1,50 +1,90 @@
-const database = {
-    'clara': {
-        name: 'Clara', grade: 1, 
-        theory: "<h3>🌟 Học đếm và So sánh (Phạm vi 10)</h3><p>Sử dụng ngón tay và vật thật để đếm. Số đứng sau luôn lớn hơn số đứng trước.</p>",
-        exercises: [
-            { q: "Có bao nhiêu chú voi? (🐘)", a: "1" },
-            { q: "Bé đếm xem có mấy quả táo? (🍎🍎🍎)", a: "3" },
-            { q: "Số nào lớn nhất: 1, 5 hay 2?", a: "5" },
-            { q: "Điền số tiếp theo vào dãy: 1, 2, 3, ...", a: "4" },
-            // ... Bạn sẽ copy thêm 16 câu từ AI vào đây theo hướng dẫn dưới ...
-        ],
-        autoRead: true, hasTimer: false
-    },
-    'cris': {
-        name: 'Cris', grade: 3,
-        theory: "<h3>⏰ Xem giờ và Tính toán nhiều bước</h3><p>Ghi nhớ bảng cửu chương và quy tắc kim đồng hồ chỉ số 12 là giờ đúng.</p>",
-        exercises: [
-            { q: "Kim ngắn chỉ số 9, kim dài chỉ số 12 là mấy giờ?", a: "9" },
-            { q: "Mỗi bạn có 5 cái kẹo, 4 bạn có bao nhiêu cái?", a: "20" },
-            { q: "Gấu có 40 kẹo chia đều cho 10 bạn, mỗi bạn được mấy cái?", a: "4" },
-            { q: "Một ngày có bao nhiêu giờ?", a: "24" },
-            // ... Copy thêm 16 câu từ AI ...
-        ],
-        autoRead: false, hasTimer: true, timeLimit: 45
-    },
-    'simon': {
-        name: 'Simon', grade: 4,
-        theory: "<h3>📊 Toán Tổng - Hiệu & Sơ đồ đoạn thẳng</h3><p>Công thức: Số lớn = (Tổng + Hiệu) : 2. Luôn vẽ sơ đồ trước khi giải.</p>",
-        exercises: [
-            { q: "Tổng 2 số là 50, hiệu là 10. Tìm số lớn?", a: "30" },
-            { q: "Simon có 15 bi, nhiều hơn Cris 5 viên. Cris có mấy viên?", a: "10" },
-            { q: "Số bé nhất có 5 chữ số?", a: "10000" },
-            { q: "Tính nhanh: (25 + 75) x 4?", a: "400" },
-            // ... Copy thêm 16 câu từ AI ...
-        ],
-        autoRead: false, hasTimer: true, timeLimit: 30
-    },
-    'toro': {
-        name: 'Toro', grade: 5,
-        theory: "<h3>📈 Tỉ số % và Toán Chuyển động</h3><p>Vận tốc = Quãng đường : Thời gian. Tỉ số % = (Giá trị : Tổng) x 100.</p>",
-        exercises: [
-            { q: "Giảm 10% cho món đồ 200k. Số tiền giảm là bao nhiêu? (k)", a: "20" },
-            { q: "Đi 120km trong 2 giờ, vận tốc là bao nhiêu? (km/h)", a: "60" },
-            { q: "Diện tích tam giác đáy 10m, cao 5m?", a: "25" },
-            { q: "360 triệu giảm giá 2,5% thì giảm bao nhiêu triệu?", a: "9" },
-            // ... Copy thêm 16 câu từ AI ...
-        ],
-        autoRead: false, hasTimer: true, timeLimit: 20
-    }
+const questionsBank = {
+    'clara': [
+        { q: "Có bao nhiêu chú voi trong hình? (🐘)", a: "1" },
+        { q: "Bé đếm xem có mấy quả táo? (🍎🍎🍎)", a: "3" },
+        { q: "Trong các số 1, 2 và 3, số nào là số lớn nhất?", a: "3" },
+        { q: "Số nào đứng ngay sau số 1?", a: "2" },
+        { q: "Bé có 2 cái kẹo, mẹ cho thêm 1 cái. Bé có mấy cái?", a: "3" },
+        { q: "Có mấy bạn bướm đang bay? (🦋🦋)", a: "2" },
+        { q: "Số nào đứng trước số 5?", a: "4" },
+        { q: "Bé đếm số ngón tay trên một bàn tay nhé?", a: "5" },
+        { q: "Trong các số 8, 4 và 9, số nào lớn nhất?", a: "9" },
+        { q: "Bé có 5 quả bóng, bay mất 1 quả. Còn lại mấy quả?", a: "4" },
+        { q: "Số nào lớn hơn: 6 hay 3?", a: "6" },
+        { q: "Đếm số bông hoa: (🌸🌸🌸🌸🌸🌸)", a: "6" },
+        { q: "Số đứng giữa số 7 và số 9 là số nào?", a: "8" },
+        { q: "Bé có 4 cái bánh, bé ăn mất 2 cái. Còn mấy cái?", a: "2" },
+        { q: "Số nào nhỏ nhất trong các số: 10, 5, 2?", a: "2" },
+        { q: "Bé đếm xem có mấy ngôi sao? (⭐) ", a: "1" },
+        { q: "Số nào đứng ngay sau số 9?", a: "10" },
+        { q: "Mẹ mua 3 quả cam, bố mua thêm 2 quả. Tổng là mấy?", a: "5" },
+        { q: "Bé có 1 con búp bê, chị cho thêm 1 con nữa. Là mấy?", a: "2" },
+        { q: "Số nào bé hơn số 1?", a: "0" }
+    ],
+    'cris': [
+        { q: "Kim ngắn chỉ số 9, kim dài chỉ số 12 là mấy giờ đúng?", a: "9" },
+        { q: "Bạn Gấu có 25 cái bánh, mua thêm 30 cái. Tổng cộng?", a: "55" },
+        { q: "Gấu có 40 kẹo chia đều cho 10 bạn. Mỗi bạn được mấy cái?", a: "4" },
+        { q: "Một ngày có tổng cộng bao nhiêu giờ?", a: "24" },
+        { q: "Có 5 túi kẹo, mỗi túi có 6 viên. Tất cả có mấy viên?", a: "30" },
+        { q: "Đồng hồ chỉ 3 giờ chiều còn được gọi là mấy giờ?", a: "15" },
+        { q: "Một tuần lễ có bao nhiêu ngày?", a: "7" },
+        { q: "Kết quả của phép tính 7 x 8 là bao nhiêu?", a: "56" },
+        { q: "Có 32 quả cam chia vào 4 rổ. Mỗi rổ có mấy quả?", a: "8" },
+        { q: "Mẹ đi chợ từ 8 giờ đến 10 giờ. Mẹ đi trong mấy giờ?", a: "2" },
+        { q: "Số lớn nhất có 3 chữ số là số nào?", a: "999" },
+        { q: "Gấu có 100 đồng, mua bánh hết 75 đồng. Còn lại mấy?", a: "25" },
+        { q: "Tìm một số biết số đó chia cho 5 thì được 6?", a: "30" },
+        { q: "Một hình vuông có cạnh 5cm. Chu vi là bao nhiêu?", a: "20" },
+        { q: "Lớp có 3 hàng ghế, mỗi hàng 9 bạn. Tổng có mấy bạn?", a: "27" },
+        { q: "Đồng hồ chỉ 10 giờ 30 phút, kim dài chỉ vào số mấy?", a: "6" },
+        { q: "Tháng 1 có bao nhiêu ngày?", a: "31" },
+        { q: "Gấu có 18 viên bi, chia làm 2 phần bằng nhau. Mỗi phần?", a: "9" },
+        { q: "Số bé nhất có 3 chữ số khác nhau là số nào?", a: "102" },
+        { q: "Phép nhân nào có kết quả bằng 45?", a: "9" } // Giả định đề hỏi 5 x mấy = 45
+    ],
+    'simon': [
+        { q: "Tổng 2 số là 50, hiệu là 10. Tìm số lớn?", a: "30" },
+        { q: "Simon có 15 bi, nhiều hơn Cris 5 viên. Cris có mấy viên?", a: "10" },
+        { q: "Số bé nhất có 5 chữ số là số nào?", a: "10000" },
+        { q: "Tính giá trị biểu thức: (25 + 75) x 4?", a: "400" },
+        { q: "Trung bình cộng của 20 và 40 là bao nhiêu?", a: "30" },
+        { q: "Một hình chữ nhật có dài 10m, rộng 5m. Diện tích?", a: "50" },
+        { q: "Hiệu 2 số là 20, số bé là 15. Số lớn là bao nhiêu?", a: "35" },
+        { q: "Tổng 2 số là 100, hiệu là 20. Số bé là bao nhiêu?", a: "40" },
+        { q: "Số nào lớn nhất: 56789, 56800, 56799?", a: "56800" },
+        { q: "Có 4 xe tải, mỗi xe chở 2500kg gạo. Tổng chở mấy kg?", a: "10000" },
+        { q: "Tính chu vi hình vuông có diện tích 16cm2?", a: "16" },
+        { q: "Simon đọc sách 2 giờ, mỗi giờ 15 trang. Tổng đọc mấy trang?", a: "30" },
+        { q: "Số 45678 làm tròn đến hàng nghìn là bao nhiêu?", a: "46000" },
+        { q: "Một vòi nước chảy 5 phút được 60 lít. 1 phút chảy mấy lít?", a: "12" },
+        { q: "Tổng tuổi 2 anh em là 20, anh hơn em 4 tuổi. Tuổi em?", a: "8" },
+        { q: "Có 120 cái kẹo chia cho 3 lớp. Mỗi lớp mấy cái?", a: "40" },
+        { q: "Số gồm 5 chục nghìn và 5 đơn vị viết là?", a: "50005" },
+        { q: "Gấp 15 lên 4 lần rồi trừ đi 10 thì được bao nhiêu?", a: "50" },
+        { q: "Hình chữ nhật có chu vi 30m, dài 10m. Rộng mấy m?", a: "5" },
+        { q: "Trong dãy số 2, 4, 6, ..., số thứ 10 là số nào?", a: "20" }
+    ],
+    'toro': [
+        { q: "Giảm giá 10% cho món đồ 200k. Số tiền giảm là bao nhiêu?", a: "20" },
+        { q: "Đi 120km trong 2 giờ. Vận tốc là bao nhiêu km/h?", a: "60" },
+        { q: "Diện tích tam giác có đáy 10m, cao 5m là bao nhiêu?", a: "25" },
+        { q: "360 triệu giảm giá 2,5%. Số tiền giảm là bao nhiêu triệu?", a: "9" },
+        { q: "Tính 25% của 100 là bao nhiêu?", a: "25" },
+        { q: "Vận tốc 40km/h, đi trong 3 giờ được quãng đường bao nhiêu?", a: "120" },
+        { q: "Hình tròn có bán kính 2cm. Diện tích là? (lấy pi=3,14)", a: "12" },
+        { q: "Lãi suất 1% tháng, gửi 10 triệu thì 1 tháng nhận mấy tiền lãi?", a: "100" }, // đơn vị nghìn
+        { q: "Một hình lập phương có cạnh 2m. Thể tích là mấy m3?", a: "8" },
+        { q: "Tỉ số phần trăm của 5 và 20 là bao nhiêu?", a: "25" },
+        { q: "Đi bộ 5km/h, đi quãng đường 15km mất mấy giờ?", a: "3" },
+        { q: "Diện tích hình thang có đáy 4m và 6m, cao 3m là mấy?", a: "15" },
+        { q: "Giá xăng 20k, tăng thêm 10%. Giá mới là bao nhiêu?", a: "22" },
+        { q: "Xe máy đi 90km hết 1.5 giờ. Vận tốc là bao nhiêu?", a: "60" },
+        { q: "1/4 của một giờ là bao nhiêu phút?", a: "15" },
+        { q: "Bể nước thể tích 10m3, đang đầy 50%. Có mấy m3 nước?", a: "5" },
+        { q: "Lớp có 40 bạn, 60% là nữ. Có bao nhiêu bạn nữ?", a: "24" },
+        { q: "Cạnh hình lập phương tăng 2 lần thì thể tích tăng mấy lần?", a: "8" },
+        { q: "Vận tốc dòng nước 2km/h, thuyền 15km/h. Vận tốc xuôi dòng?", a: "17" },
+        { q: "Một khu đất hình chữ nhật có tỉ lệ 1:1000, dài trên bản đồ 5cm. Dài thật (m)?", a: "50" }
+    ]
 };
